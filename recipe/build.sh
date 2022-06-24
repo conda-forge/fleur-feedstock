@@ -17,16 +17,14 @@ export FLEUR_LIBRARIES="-L${PREFIX}/lib;-lfftw3;-lxml2;-lblas;-llapack;-lscalapa
 cd build/include
 ls
 
+cat -v compileinfo.h
 sed -n '/\x0/ { s/\x0/<NUL>/g; p}' compileinfo.h
 
 sed 's/\x0//g' compileinfo.h > compileinfo.h
 
 sed -n '/\x0/ { s/\x0/<NUL>/g; p}' compileinfo.h
 
-cd -
-
-make
-cd -
+cd -; cd build; make; cd -
 
 mkdir -p ${PREFIX}/bin
 cp build/fleur_MPI ${PREFIX}/bin
