@@ -16,16 +16,14 @@ export FLEUR_LIBRARIES="-L${PREFIX}/lib;-lfftw3;-lxml2;-lblas;-llapack;-lscalapa
 
 cd build
 
-echo "Before"
-grep -Pa '\x00' --color=never include/buildinfo.h | cat -vET
-grep -Pa '\x00' --color=never include/compileinfo.h | cat -vET
+sed -n '/\x0/ { s/\x0/<NUL>/g; p}' include/buildinfo.h
+sed -n '/\x0/ { s/\x0/<NUL>/g; p}' include/compileinfo.h
 
 sed 's/\x0//g' include/buildinfo.h > include/buildinfo.h
 sed 's/\x0//g' include/compileinfo.h > include/compileinfo.h
 
-echo "After"
-grep -Pa '\x00' --color=never include/buildinfo.h | cat -vET
-grep -Pa '\x00' --color=never include/compileinfo.h | cat -vET
+sed -n '/\x0/ { s/\x0/<NUL>/g; p}' include/buildinfo.h
+sed -n '/\x0/ { s/\x0/<NUL>/g; p}' include/compileinfo.h
 
 make
 cd -
