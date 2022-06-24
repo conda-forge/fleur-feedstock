@@ -14,16 +14,19 @@ export FLEUR_LIBRARIES="-L${PREFIX}/lib;-lfftw3;-lxml2;-lblas;-llapack;-lscalapa
 #export CFLAGS="${CFLAGS} -I$"
 ./configure.sh
 
-cd build
+cd build/include
+ls
 
-sed -n '/\x0/ { s/\x0/<NUL>/g; p}' include/buildinfo.h
-sed -n '/\x0/ { s/\x0/<NUL>/g; p}' include/compileinfo.h
+sed -n '/\x0/ { s/\x0/<NUL>/g; p}' buildinfo.h
+sed -n '/\x0/ { s/\x0/<NUL>/g; p}' compileinfo.h
 
-sed 's/\x0//g' include/buildinfo.h > include/buildinfo.h
-sed 's/\x0//g' include/compileinfo.h > include/compileinfo.h
+sed 's/\x0//g' buildinfo.h > buildinfo.h
+sed 's/\x0//g' compileinfo.h > compileinfo.h
 
-sed -n '/\x0/ { s/\x0/<NUL>/g; p}' include/buildinfo.h
-sed -n '/\x0/ { s/\x0/<NUL>/g; p}' include/compileinfo.h
+sed -n '/\x0/ { s/\x0/<NUL>/g; p}' buildinfo.h
+sed -n '/\x0/ { s/\x0/<NUL>/g; p}' compileinfo.h
+
+cd -
 
 make
 cd -
