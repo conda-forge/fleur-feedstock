@@ -14,7 +14,7 @@ export FLEUR_LIBRARIES="-L${PREFIX}/lib;-lfftw3;-lxml2;-lblas;-llapack;-lscalapa
 #export CFLAGS="${CFLAGS} -I$"
 ./configure.sh
 
-cd build; make; cd -
+cd build; make -j${CPU_COUNT}; cd -
 
 mkdir -p ${PREFIX}/bin
 cp build/fleur_MPI ${PREFIX}/bin
