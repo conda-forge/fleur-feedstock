@@ -17,13 +17,10 @@ export FLEUR_LIBRARIES="-L${PREFIX}/lib;-lfftw3;-lxml2;-lblas;-llapack;-lscalapa
 cd build/include
 ls
 
-sed -n '/\x0/ { s/\x0/<NUL>/g; p}' buildinfo.h
 sed -n '/\x0/ { s/\x0/<NUL>/g; p}' compileinfo.h
 
-sed 's/\x0//g' buildinfo.h > buildinfo.h
 sed 's/\x0//g' compileinfo.h > compileinfo.h
 
-sed -n '/\x0/ { s/\x0/<NUL>/g; p}' buildinfo.h
 sed -n '/\x0/ { s/\x0/<NUL>/g; p}' compileinfo.h
 
 cd -
