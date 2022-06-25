@@ -9,9 +9,11 @@ package:
 source:
   url: https://iffgit.fz-juelich.de/{{ name }}/{{ name }}/-/archive/{{ version_long }}/{{ name }}-{{ version_long }}.tar.gz
   sha256: b022793360c198e18f269541152a04189990c0bf8326939f0f24bb8ca2adf757
+  patches:
+    remove_nul_characters_compileinfo.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [not linux]
 
 requirements:

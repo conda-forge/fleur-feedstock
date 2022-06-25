@@ -21,9 +21,9 @@ fortran_compiler:
 fortran_compiler_version:
 - '10'
 libblas:
-- 3.8 *netlib
+- 3.9 *netlib
 liblapack:
-- 3.8 *netlib
+- 3.9 *netlib
 libxml2:
 - '2.9'
 openmpi:
