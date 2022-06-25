@@ -27,8 +27,6 @@ requirements:
     - doxygen
   host:
     - openmpi
-    - scalapack
-    - libblas * *openblas*
     - openblas * *openmp*
     - liblapack
     - libgomp
@@ -36,7 +34,6 @@ requirements:
     - fftw
   run:
     - openmpi
-    - scalapack
     - libblas * *openblas*
     - openblas * *openmp*
 
