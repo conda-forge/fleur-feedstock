@@ -1,5 +1,5 @@
 diff --git a/init/compile_descr.F90 b/init/compile_descr.F90
-index 039ab6dfb..34dd8e980 100644
+index 039ab6dfb..6d2756070 100644
 --- a/init/compile_descr.F90
 +++ b/init/compile_descr.F90
 @@ -45,6 +45,31 @@ CONTAINS
@@ -25,7 +25,7 @@ index 039ab6dfb..34dd8e980 100644
 +
 +         pos = index( string, achar(0) )
 +         if ( pos > 0 ) then
-+            removenuls = string(1:pos)
++            removenuls = string(1:pos-1)
 +         else
 +            removenuls = string
 +         endif

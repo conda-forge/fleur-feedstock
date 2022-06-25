@@ -13,7 +13,7 @@ source:
     remove_nul_characters_compileinfo.patch
 
 build:
-  number: 2
+  number: 3
   skip: True  # [not linux]
 
 requirements:
