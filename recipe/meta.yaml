@@ -26,23 +26,25 @@ requirements:
     - git
     - doxygen
   host:
+    - openmpi
+    - scalapack
     - openblas * *openmp*
     - liblapack
     - libgomp
-    - openmpi
-    - scalapack
     - libxml2
     - fftw
   run:
     - openmpi
     - scalapack
-    - libblas * *openblas
+    - libblas * *openblas*
     - openblas * *openmp*
 
 test:
   commands:
-    - inpgen -h    
+    - inpgen -h
     - test -f $PREFIX/bin/fleur_MPI  # [unix]
+    - fleur_MPI -h
+
 about:
   home: https://www.flapw.de/
   license: MIT
