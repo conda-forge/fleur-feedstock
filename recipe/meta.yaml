@@ -13,7 +13,7 @@ source:
     remove_nul_characters_compileinfo.patch
 
 build:
-  number: 3
+  number: 4
   skip: True  # [not linux]
 
 requirements:
@@ -26,16 +26,19 @@ requirements:
     - git
     - doxygen
   host:
-    - libblas
-    - liblapack
-    - libgomp
     - openmpi <=4.1.2
     - scalapack
+    - openblas * *openmp*
+    - liblapack
+    - libgomp
     - libxml2
     - fftw
+    - hdf5 * *openmpi*
   run:
     - openmpi <=4.1.2
     - scalapack
+    - libblas * *openblas  # [linux]
+    - openblas * *openmp*  # [linux]
 
 test:
   commands:
