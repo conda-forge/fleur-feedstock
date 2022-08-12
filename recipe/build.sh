@@ -15,7 +15,13 @@ fi
 
 ./configure.sh
 
-cd build; make -j${CPU_COUNT}; cd -
+cd build; make -j${CPU_COUNT}
+
+ulimit -s unlimited
+#The skipped test is flaky and can randomly fail (Remove once this issue is fixed)
+./run_tests.sh -k "-Fe_Tetra_noSYM"
+
+cd -
 
 mkdir -p ${PREFIX}/bin
 cp build/fleur_MPI ${PREFIX}/bin

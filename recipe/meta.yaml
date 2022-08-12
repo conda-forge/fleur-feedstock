@@ -25,6 +25,9 @@ requirements:
     - make
     - git
     - doxygen
+    - python >=3
+    - pytest
+    - masci-tools
   host:
     - openmpi <=4.1.2
     - scalapack
@@ -44,16 +47,9 @@ requirements:
     - openblas * *openmp*  # [linux]
 
 test:
-  # requires:
-  #   - python >=3
-  #   - pytest
-  #   - masci-tools
   commands:
     - inpgen -h    
     - test -f $PREFIX/bin/fleur_MPI  # [unix]
-    # - ulimit -s unlimited
-    # #The skipped test is flaky and can randomly fail (Remove once this issue is fixed)
-    # - cd build; juDFT_PYTHON="python" ./run_tests.sh -k "-Fe_Tetra_noSYM"
 
 about:
   home: https://www.flapw.de/
