@@ -1,9 +1,6 @@
 #!/bin/bash
 set -ex
 
-ls ${PREFIX}/include
-ls ${PREFIX}/include/libxml2
-
 export CC="mpicc"
 export CXX="mpicxx"
 export FC=mpif90
