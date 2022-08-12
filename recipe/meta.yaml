@@ -44,7 +44,7 @@ requirements:
     - openblas * *openmp*  # [linux]
 
 test:
-  requirements:
+  requires:
     - python >=3
     - pytest
     - masci-tools
