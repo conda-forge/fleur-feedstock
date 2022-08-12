@@ -28,18 +28,18 @@ requirements:
   host:
     - openmpi <=4.1.2
     - scalapack
-    - libblas # [osx]
-    - openblas * *openmp* # [linux]
+    - libblas  # [osx]
+    - openblas * *openmp*  # [linux]
     - liblapack
-    - llvm-openmp # [osx]
-    - libgomp # [linux]
+    - llvm-openmp  # [osx]
+    - libgomp  # [linux]
     - libxml2
     - fftw
     - hdf5 * *openmpi*
   run:
     - openmpi <=4.1.2
     - scalapack
-    - libblas # [osx]
+    - libblas  # [osx]
     - libblas * *openblas  # [linux]
     - openblas * *openmp*  # [linux]
 
