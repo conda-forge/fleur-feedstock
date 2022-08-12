@@ -13,8 +13,8 @@ source:
     remove_nul_characters_compileinfo.patch
 
 build:
-  number: 4
-  skip: True  # [not linux]
+  number: 5
+  skip: True  # [win]
 
 requirements:
   build:
@@ -28,15 +28,18 @@ requirements:
   host:
     - openmpi <=4.1.2
     - scalapack
-    - openblas * *openmp*
+    - libblas # [osx]
+    - openblas * *openmp* # [linux]
     - liblapack
-    - libgomp
+    - llvm-openmp # [osx]
+    - libgomp # [linux]
     - libxml2
     - fftw
     - hdf5 * *openmpi*
   run:
     - openmpi <=4.1.2
     - scalapack
+    - libblas # [osx]
     - libblas * *openblas  # [linux]
     - openblas * *openmp*  # [linux]
 
@@ -44,6 +47,7 @@ test:
   commands:
     - inpgen -h    
     - test -f $PREFIX/bin/fleur_MPI  # [unix]
+    - fleur_MPI -h
 about:
   home: https://www.flapw.de/
   license: MIT
