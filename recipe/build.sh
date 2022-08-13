@@ -17,9 +17,11 @@ fi
 
 cd build; make -j${CPU_COUNT}
 
-#The skipped test is flaky and can randomly fail (Remove once this issue is fixed)
+#The skipped Fe_Tetra_noSYM test is flaky and can randomly fail (Remove once this issue is fixed)
+#The hybrid tests and the CoUnfold test need more than 2 mpi processes which is not possible
+#on the conda-forge CI
 export juDFT_MPI="mpirun -n {mpi_procs} -mca plm isolated "
-./run_tests.sh -k "not Fe_Tetra_noSYM" --skipmarkers hybrid
+./run_tests.sh -k "not Fe_Tetra_noSYM and not CoUnfold" --skipmarkers hybrid
 
 cd -
 
