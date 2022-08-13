@@ -18,7 +18,7 @@ fi
 cd build; make -j${CPU_COUNT}
 
 #The skipped test is flaky and can randomly fail (Remove once this issue is fixed)
-./run_tests.sh -k "-Fe_Tetra_noSYM"
+./run_tests.sh -k "not Fe_Tetra_noSYM"
 
 cd -
 
