@@ -18,6 +18,7 @@ fi
 cd build; make -j${CPU_COUNT}
 
 #The skipped test is flaky and can randomly fail (Remove once this issue is fixed)
+export juDFT_MPI="mpirun -n {mpi_procs} -mca plm isolated "
 ./run_tests.sh -k "not Fe_Tetra_noSYM"
 
 cd -
