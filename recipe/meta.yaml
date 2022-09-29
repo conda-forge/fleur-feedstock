@@ -1,5 +1,5 @@
 {% set name = "fleur" %}
-{% set version = "6.0" %}
+{% set version = "6.1" %}
 {% set version_long = "MaX-R" + version %}
 
 package:
@@ -8,13 +8,11 @@ package:
 
 source:
   url: https://iffgit.fz-juelich.de/{{ name }}/{{ name }}/-/archive/{{ version_long }}/{{ name }}-{{ version_long }}.tar.gz
-  sha256: b022793360c198e18f269541152a04189990c0bf8326939f0f24bb8ca2adf757
-  patches:
-    remove_nul_characters_compileinfo.patch
+  sha256: 6f13e71c8c68095fb2b65ce2296a552192a9b4493e2854e1cde3c2e7a58e177f
 
 build:
-  number: 5
-  skip: True  # [win]
+  number: 0
+  skip: true  # [win]
 
 requirements:
   build:
@@ -48,7 +46,7 @@ requirements:
 
 test:
   commands:
-    - inpgen -h    
+    - inpgen -h
     - test -f $PREFIX/bin/fleur_MPI  # [unix]
 
 about:
