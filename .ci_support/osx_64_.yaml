@@ -23,16 +23,11 @@ libblas:
 liblapack:
 - 3.9 *netlib
 libxml2:
-- '2.9'
+- '2.10'
 llvm_openmp:
 - '14'
 macos_machine:
 - x86_64-apple-darwin13.4.0
-pin_run_as_build:
-  fftw:
-    max_pin: x
-  libxml2:
-    max_pin: x.x
 target_platform:
 - osx-64
 zip_keys:
