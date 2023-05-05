@@ -1,11 +1,11 @@
-About fleur
-===========
+About fleur-feedstock
+=====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/fleur-feedstock/blob/main/LICENSE.txt)
 
 Home: https://www.flapw.de/
 
 Package license: MIT
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/fleur-feedstock/blob/main/LICENSE.txt)
 
 Summary: A feature-full, freely available FLAPW (full-potential linearized augmented planewave) code, based on density-functional theory
 
