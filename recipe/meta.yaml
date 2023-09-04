@@ -11,7 +11,7 @@ source:
   sha256: 7c7943b22043b991ed8c379662cbe8295e4679013fbd70a1ff36db8984595d4a
 
 build:
-  number: 3
+  number: 4
   skip: true  # [win]
 
 requirements:
@@ -27,7 +27,7 @@ requirements:
     - pytest
     - masci-tools
   host:
-    - openmpi <=4.1.2
+    - openmpi <4.2
     - scalapack
     - libblas  # [osx]
     - openblas * *openmp*  # [linux]
@@ -38,7 +38,7 @@ requirements:
     - fftw
     - hdf5 * *openmpi*
   run:
-    - openmpi <=4.1.2
+    - openmpi <4.2
     - scalapack
     - libblas  # [osx]
     - libblas * *openblas  # [linux]
