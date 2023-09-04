@@ -27,7 +27,7 @@ requirements:
     - pytest
     - masci-tools
   host:
-    - openmpi <4.2
+    - openmpi <=4.1
     - scalapack
     - libblas  # [osx]
     - openblas * *openmp*  # [linux]
@@ -38,7 +38,7 @@ requirements:
     - fftw
     - hdf5 * *openmpi*
   run:
-    - openmpi <4.2
+    - openmpi <=4.1
     - scalapack
     - libblas  # [osx]
     - libblas * *openblas  # [linux]
