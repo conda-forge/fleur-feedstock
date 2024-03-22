@@ -23,7 +23,7 @@ libblas:
 liblapack:
 - 3.9 *netlib
 libxml2:
-- '2.12'
+- '2'
 llvm_openmp:
 - '16'
 macos_machine:
