@@ -1,5 +1,5 @@
 {% set name = "fleur" %}
-{% set version = "6.2" %}
+{% set version = "7.2" %}
 {% set version_long = "MaX-R" + version %}
 
 package:
@@ -8,15 +8,16 @@ package:
 
 source:
   url: https://iffgit.fz-juelich.de/{{ name }}/{{ name }}/-/archive/{{ version_long }}/{{ name }}-{{ version_long }}.tar.gz
-  sha256: 7c7943b22043b991ed8c379662cbe8295e4679013fbd70a1ff36db8984595d4a
+  sha256: 6e7c5511bd2f0edde6b1551d2f8210e900a1a20590a7a815922d0d9fbd3d8b40
 
 build:
-  number: 6
+  number: 0
   skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
     - cmake
