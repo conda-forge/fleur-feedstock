@@ -11,12 +11,13 @@ source:
   sha256: 7c7943b22043b991ed8c379662cbe8295e4679013fbd70a1ff36db8984595d4a
 
 build:
-  number: 6
+  number: 7
   skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
     - cmake
