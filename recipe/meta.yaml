@@ -47,7 +47,7 @@ requirements:
 
 test:
   commands:
-    - inpgen -h
+    - inpgen -version
     - test -f $PREFIX/bin/fleur_MPI  # [unix]
 
 about:
