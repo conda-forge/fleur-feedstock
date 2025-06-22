@@ -20,7 +20,7 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
-    - cmake
+    - cmake <4
     - make
     - git
     - doxygen
