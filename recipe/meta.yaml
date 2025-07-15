@@ -1,5 +1,5 @@
 {% set name = "fleur" %}
-{% set version = "7.2" %}
+{% set version = "8.0" %}
 {% set version_long = "MaX-R" + version %}
 
 package:
@@ -8,9 +8,8 @@ package:
 
 source:
   url: https://iffgit.fz-juelich.de/{{ name }}/{{ name }}/-/archive/{{ version_long }}/{{ name }}-{{ version_long }}.tar.gz
-  sha256: 6e7c5511bd2f0edde6b1551d2f8210e900a1a20590a7a815922d0d9fbd3d8b40
-  patches:
-    uncomment_debug_preprocessor_statement.patch
+  sha256: dc5deca84a954a7f9b5918ecdec129343ddf30e486ea3851c25aee77d25512df
+  patches: uncomment_debug_preprocessor_statement.patch
 
 build:
   number: 0
