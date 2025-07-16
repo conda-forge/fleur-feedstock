@@ -9,7 +9,6 @@ package:
 source:
   url: https://iffgit.fz-juelich.de/{{ name }}/{{ name }}/-/archive/{{ version_long }}/{{ name }}-{{ version_long }}.tar.gz
   sha256: dc5deca84a954a7f9b5918ecdec129343ddf30e486ea3851c25aee77d25512df
-  patches: uncomment_debug_preprocessor_statement.patch
 
 build:
   number: 0
