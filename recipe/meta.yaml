@@ -4,7 +4,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: https://iffgit.fz-juelich.de/{{ name }}/{{ name }}/-/archive/{{ version_long }}/{{ name }}-{{ version_long }}.tar.gz
