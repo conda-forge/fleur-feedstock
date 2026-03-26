@@ -9,9 +9,11 @@ package:
 source:
   url: https://iffgit.fz-juelich.de/{{ name }}/{{ name }}/-/archive/{{ version_long }}/{{ name }}-{{ version_long }}.tar.gz
   sha256: dc5deca84a954a7f9b5918ecdec129343ddf30e486ea3851c25aee77d25512df
+  patches:
+    - patches/skip_mtune_native_cross.patch  # [build_platform != target_platform]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -27,6 +29,7 @@ requirements:
     - python >=3
     - pytest
     - masci-tools
+    - openmpi  # [build_platform != target_platform]
   host:
     - openmpi
     - scalapack
