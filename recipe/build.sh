@@ -13,6 +13,16 @@ else
 fi
 
 
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == "1" ]]; then
+  export OPAL_PREFIX=$PREFIX
+  export FLEUR_LIBDIR="${PREFIX}/lib"
+  export CMAKE_OPTIONS="${CMAKE_ARGS} \
+    -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY \
+    -DCLI_WARN_ONLY=ON \
+    -DFLEUR_HDF5_LIBRARIES=${FLEUR_LIBRARIES};-lhdf5_fortran;-lhdf5 \
+    -DCLI_FLEUR_USE_MAGMA=FALSE \
+    -DCLI_FLEUR_USE_WANNIER=FALSE"
+fi
 ./configure.sh
 
 cd build; make -j${CPU_COUNT}
