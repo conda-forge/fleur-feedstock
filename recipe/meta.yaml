@@ -35,7 +35,7 @@ requirements:
     - liblapack
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
-    - libxml2
+    - libxml2-devel
     - fftw
     - hdf5 * *openmpi*
   run:
