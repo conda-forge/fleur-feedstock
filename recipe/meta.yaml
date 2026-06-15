@@ -11,7 +11,7 @@ source:
   sha256: dc5deca84a954a7f9b5918ecdec129343ddf30e486ea3851c25aee77d25512df
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -35,7 +35,7 @@ requirements:
     - liblapack
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
-    - libxml2
+    - libxml2-devel
     - fftw
     - hdf5 * *openmpi*
   run:
