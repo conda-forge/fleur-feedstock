@@ -64,5 +64,6 @@ about:
 
 extra:
   recipe-maintainers:
+    - mbercx
     - ltalirz
     - janssenhenning
