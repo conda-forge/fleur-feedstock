@@ -10,6 +10,7 @@ source:
   url: https://github.com/JuDFTteam/FLEUR/archive/refs/tags/{{ version_long }}.tar.gz
   sha256: d782bb7ae8cedbfe1d6818f242bb60fb41c535688b6303b648f5971c0427516e
   patches:
+    - patches/remove_inpgen2_from_compilation.patch
     - patches/skip_mtune_native_cross.patch  # [build_platform != target_platform]
 
 build:

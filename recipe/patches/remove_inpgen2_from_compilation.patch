@@ -1,0 +1,19 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b70ce4629..b64d9c3d5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -25,12 +25,12 @@ include("cmake/filespecific.cmake")
+ include("cmake/pytest_setup.cmake")
+ 
+ # Also build inpgen2+3
+-add_subdirectory("src/tools/inpgen2")
++#add_subdirectory("src/tools/inpgen2")
+ add_subdirectory("src/tools/inpgen3")
+ # Ensure buildinfo.h is generated before inpgen2/3 and fleurinpgen are compiled.
+ # The 'buildinfo' target (defined in cmake/compileenv.txt) generates the header
+ # independently, so we no longer need to depend on the full fleur/fleur_MPI builds.
+-add_dependencies("inpgen2" buildinfo)
++#add_dependencies("inpgen2" buildinfo)
+ add_dependencies("inpgen3" buildinfo)
+ add_dependencies("fleurinpgen" buildinfo)
+ 
