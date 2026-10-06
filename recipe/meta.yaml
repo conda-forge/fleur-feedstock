@@ -13,7 +13,7 @@ source:
     - patches/skip_mtune_native_cross.patch  # [build_platform != target_platform]
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
 
 requirements:
