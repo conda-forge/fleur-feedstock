@@ -7,13 +7,13 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://iffgit.fz-juelich.de/{{ name }}/{{ name }}/-/archive/{{ version_long }}/{{ name }}-{{ version_long }}.tar.gz
-  sha256: dc5deca84a954a7f9b5918ecdec129343ddf30e486ea3851c25aee77d25512df
+  url: https://github.com/JuDFTteam/FLEUR/archive/refs/tags/{{ version_long }}.tar.gz
+  sha256: 8ee4c8b2fd2c875e8ebcb1d49cbfb33b1a096899886576e063e56310b75ed0d2
   patches:
     - patches/skip_mtune_native_cross.patch  # [build_platform != target_platform]
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
