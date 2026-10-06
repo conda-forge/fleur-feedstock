@@ -1,0 +1,216 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b70ce4629..700542522 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -36,7 +36,7 @@ add_dependencies("fleurinpgen" buildinfo)
+ 
+ 
+ #Build fleuriste TUI/CLI
+-add_subdirectory("src/tools/inpgen3/fleuriste")
++#add_subdirectory("src/tools/inpgen3/fleuriste")
+ 
+ include("cmake/ReportConfig.txt")
+ 
+diff --git a/cmake/Generate_Schema.cmake b/cmake/Generate_Schema.cmake
+index 0ddcf6ae2..653178fff 100644
+--- a/cmake/Generate_Schema.cmake
++++ b/cmake/Generate_Schema.cmake
+@@ -1,5 +1,23 @@
+ file(REMOVE ${CMAKE_SOURCE_DIR}/src/fleur/io/xml/inputSchema.h)
+ find_program(XXD_PROG xxd)
++
++
++set(Python3_FIND_VIRTUALENV FIRST)
++#This option prevents cmake finding a newer global python version
++#if a virtualenv with a older version is explicitely activated
++set(Python3_FIND_STRATEGY LOCATION)
++find_package(Python3)
++message("Python3 found:${Python3_FOUND}")
++message("Python3 path:${Python3_EXECUTABLE}")
++message("The python executable used for FLEURist"
++      "can be overwritten with the juDFT_PYTHON environment variable")
++
++if( Python3_FOUND )
++  set(FLEUR_PYTHON ${Python3_EXECUTABLE})
++else()
++  set(FLEUR_PYTHON "python3")
++endif()
++
+ if (XXD_PROG)
+   ADD_CUSTOM_COMMAND(
+         OUTPUT ${CMAKE_BINARY_DIR}/include/inputSchema.h
+@@ -13,6 +31,19 @@ if (XXD_PROG)
+         DEPENDS ${CMAKE_SOURCE_DIR}/src/fleur/io/xml/FleurOutputSchema.xsd
+   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/fleur/io/xml/
+         COMMENT "Putting current outputSchema into outputSchema.h")
++elseif(FLEUR_PYTHON)
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_BINARY_DIR}/include/inputSchema.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py FleurInputSchema.xsd ${CMAKE_BINARY_DIR}/include/inputSchema.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/fleur/io/xml/FleurInputSchema.xsd
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/fleur/io/xml/
++        COMMENT "Putting current inputSchema into inputSchema.h (python script)")
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_BINARY_DIR}/include/outputSchema.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py FleurOutputSchema.xsd ${CMAKE_BINARY_DIR}/include/outputSchema.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/fleur/io/xml/FleurOutputSchema.xsd
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/fleur/io/xml/
++        COMMENT "Putting current outputSchema into outputSchema.h (python script)")
+ else()
+   ADD_CUSTOM_COMMAND(
+         OUTPUT ${CMAKE_BINARY_DIR}/include/inputSchema.h
+diff --git a/src/tools/inpgen2/CMakeLists.txt b/src/tools/inpgen2/CMakeLists.txt
+index d0f37650e..d357b883e 100644
+--- a/src/tools/inpgen2/CMakeLists.txt
++++ b/src/tools/inpgen2/CMakeLists.txt
+@@ -179,6 +179,22 @@ file(REMOVE ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/oxides_validation_econfig.h)
+ file(REMOVE ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/profileConfig.h)
+ find_program(XXD_PROG xxd)
+ 
++set(Python3_FIND_VIRTUALENV FIRST)
++#This option prevents cmake finding a newer global python version
++#if a virtualenv with a older version is explicitely activated
++set(Python3_FIND_STRATEGY LOCATION)
++find_package(Python3)
++message("Python3 found:${Python3_FOUND}")
++message("Python3 path:${Python3_EXECUTABLE}")
++message("The python executable used for FLEURist"
++      "can be overwritten with the juDFT_PYTHON environment variable")
++
++if( Python3_FOUND )
++  set(FLEUR_PYTHON ${Python3_EXECUTABLE})
++else()
++  set(FLEUR_PYTHON "python3")
++endif()
++
+ if (XXD_PROG)
+     ADD_CUSTOM_COMMAND(
+     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/default_econfig.h
+@@ -207,6 +223,35 @@ if (XXD_PROG)
+     DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/profile.config
+     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/
+     COMMENT "Putting current profile.config into profileConfig.h")
++elseif(FLEUR_PYTHON)
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/default_econfig.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py default.econfig ${CMAKE_CURRENT_BINARY_DIR}/default_econfig.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/default.econfig
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/
++        COMMENT "Putting current default.econfig into default_econfig.h (python script)")
++
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/default2_econfig.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py default2.econfig ${CMAKE_CURRENT_BINARY_DIR}/default2_econfig.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/default2.econfig
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/
++        COMMENT "Putting current default2.econfig into default2_econfig.h (python script)")
++  
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/oxides_validation_econfig.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py oxides_validation.econfig ${CMAKE_CURRENT_BINARY_DIR}/oxides_validation_econfig.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/oxides_validation.econfig
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/
++        COMMENT "Putting current oxides_validation.econfig into oxides_validation_econfig.h (python script)")
++
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/profileConfig.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py profile.config ${CMAKE_CURRENT_BINARY_DIR}/profileConfig.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/profile.config
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen2/
++        COMMENT "Putting current profile.config into profileConfig.h (python script)")
++
+ else()
+     ADD_CUSTOM_COMMAND(
+     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/default_econfig.h
+diff --git a/src/tools/inpgen3/CMakeLists.txt b/src/tools/inpgen3/CMakeLists.txt
+index daf0774f2..fbb60a8d3 100644
+--- a/src/tools/inpgen3/CMakeLists.txt
++++ b/src/tools/inpgen3/CMakeLists.txt
+@@ -189,6 +189,22 @@ file(REMOVE ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/oxides_validation_econfig.h)
+ file(REMOVE ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/profileConfig.h)
+ find_program(XXD_PROG xxd)
+ 
++set(Python3_FIND_VIRTUALENV FIRST)
++#This option prevents cmake finding a newer global python version
++#if a virtualenv with a older version is explicitely activated
++set(Python3_FIND_STRATEGY LOCATION)
++find_package(Python3)
++message("Python3 found:${Python3_FOUND}")
++message("Python3 path:${Python3_EXECUTABLE}")
++message("The python executable used for FLEURist"
++      "can be overwritten with the juDFT_PYTHON environment variable")
++
++if( Python3_FOUND )
++  set(FLEUR_PYTHON ${Python3_EXECUTABLE})
++else()
++  set(FLEUR_PYTHON "python3")
++endif()
++
+ if (XXD_PROG)
+   
+     ADD_CUSTOM_COMMAND(
+@@ -218,6 +234,35 @@ if (XXD_PROG)
+     DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles/profile.config
+     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles/ 
+     COMMENT "Putting current profile.config into profileConfig.h")
++elseif(FLEUR_PYTHON)
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/default_econfig.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py default.econfig ${CMAKE_CURRENT_BINARY_DIR}/default_econfig.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles/default.econfig
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles
++        COMMENT "Putting current default.econfig into default_econfig.h (python script)")
++
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/default2_econfig.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py default2.econfig ${CMAKE_CURRENT_BINARY_DIR}/default2_econfig.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles/default2.econfig
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles
++        COMMENT "Putting current default2.econfig into default2_econfig.h (python script)")
++  
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/oxides_validation_econfig.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py oxides_validation.econfig ${CMAKE_CURRENT_BINARY_DIR}/oxides_validation_econfig.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles/oxides_validation.econfig
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles
++        COMMENT "Putting current oxides_validation.econfig into oxides_validation_econfig.h (python script)")
++
++  ADD_CUSTOM_COMMAND(
++        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/profileConfig.h
++        COMMAND ${FLEUR_PYTHON} ${CMAKE_SOURCE_DIR}/xxd_py.py profile.config ${CMAKE_CURRENT_BINARY_DIR}/profileConfig.h
++        DEPENDS ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles/profile.config
++        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/tools/inpgen3/Profiles
++        COMMENT "Putting current profile.config into profileConfig.h (python script)")
++
+ else()
+     ADD_CUSTOM_COMMAND(
+     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/default_econfig.h
+diff --git a/xxd_py.py b/xxd_py.py
+new file mode 100644
+index 000000000..fd0c5aed5
+--- /dev/null
++++ b/xxd_py.py
+@@ -0,0 +1,22 @@
++import sys
++from pathlib import Path
++import itertools
++
++def xxd_i(filename, outputfilename):
++    with open(filename, 'rb') as f:
++        data = f.read()
++
++    # Format bytes exactly like xxd -i (12 values per line)
++    hex_lines = []
++    for chunk in itertools.batched(data,12):
++        hex_lines.append("  " + ", ".join(f"0x{b:02x}" for b in chunk))
++
++    filename_snake_case = Path(filename).name.replace(".", "_")
++    with open(outputfilename, 'w') as file:
++        file.write(f"unsigned char {filename_snake_case}[] = {{\n")
++        file.write(",\n".join(hex_lines))
++        file.write("\n};\n")
++        file.write(f"unsigned int {filename_snake_case}_len = {len(data)};\n")
++
++if __name__ == "__main__":
++    xxd_i(sys.argv[1], sys.argv[2])
+\ No newline at end of file
