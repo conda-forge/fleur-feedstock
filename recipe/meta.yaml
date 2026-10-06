@@ -1,5 +1,5 @@
 {% set name = "fleur" %}
-{% set version = "8.0" %}
+{% set version = "8.1" %}
 {% set version_long = "MaX-R" + version %}
 
 package:
@@ -8,12 +8,12 @@ package:
 
 source:
   url: https://github.com/JuDFTteam/FLEUR/archive/refs/tags/{{ version_long }}.tar.gz
-  sha256: 8ee4c8b2fd2c875e8ebcb1d49cbfb33b1a096899886576e063e56310b75ed0d2
+  sha256: d782bb7ae8cedbfe1d6818f242bb60fb41c535688b6303b648f5971c0427516e
   patches:
     - patches/skip_mtune_native_cross.patch  # [build_platform != target_platform]
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win]
 
 requirements:
